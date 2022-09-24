@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CameraApp</string>
+    <string-array name="photoCategoryArray">
+        <item>Human</item>
+        <item>Nature</item>
+        <item>Food</item>
+        <item>Object</item>
+        <item>Other</item>
+    </string-array>
+</resources>
