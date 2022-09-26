@@ -58,6 +58,7 @@ public class UploadPhoto extends AppCompatActivity {
         String response = "";
         HttpURLConnection connection;
         try {
+            //Setting up the connection
             url = new URL(requestURL);
             connection = (HttpURLConnection)  url.openConnection();
             connection.setUseCaches(false);
@@ -74,8 +75,11 @@ public class UploadPhoto extends AppCompatActivity {
             writer.flush();
             writer.close();
             outputStream.close();
+
+            //Getting response code
             int responseCode = connection.getResponseCode();
 
+            //Validating response
             if(responseCode == HttpURLConnection.HTTP_OK)
             {
                 String line;
@@ -125,18 +129,24 @@ public class UploadPhoto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_photo);
 
+        //Getting image from intent from previous activity
         Intent intent = getIntent();
         Bitmap photo = (Bitmap) intent.getParcelableExtra("photo");
+        //Setting up the imageview to displat the image received
         imageView = (ImageView) findViewById(R.id.imageView);
         imageView.setImageBitmap(photo);
+        //Adding spinner to select Category of photo
         photoCategorySpinner = (Spinner) findViewById(R.id.photoCategorySpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.photoCategoryArray, android.R.layout.simple_spinner_item);
         photoCategorySpinner.setAdapter(adapter);
 
+        //editText box for taking the server IP from the user
         editTextIP = (EditText)findViewById(R.id.editTextIP);
 
+        //Upload button for uploading the captured image to the server
         uploadButton = (Button)findViewById(R.id.uploadButton);
         uploadButton.setOnClickListener(v->{
+            // Creating the URL
             String ip = editTextIP.getText().toString();
             if(ip=="")
             {
@@ -166,6 +176,8 @@ public class UploadPhoto extends AppCompatActivity {
             {
                 //call http post request here.
                 //https://stackoverflow.com/questions/11766878/sending-files-using-post-with-httpurlconnection
+
+                //Creating the requestBody
                 String attachmentName = "photoFile";
                 String photoString = encodeTobase64(photo);
                 HashMap<String,String> postData = new HashMap<>();
@@ -175,7 +187,7 @@ public class UploadPhoto extends AppCompatActivity {
                 postData.put("photoHeight", String.valueOf(photo.getHeight()));
 
                 String finalUrlString = urlString;
-
+                //Sending the POST request and displaying the result
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -196,7 +208,8 @@ public class UploadPhoto extends AppCompatActivity {
                 toast.show();
             }
         });
-
+        
+        // Back button in case User not satisfied with the image captured
         backButton = (Button) findViewById(R.id.backButton);
         backButton.setOnClickListener(v->{
             super.onBackPressed();

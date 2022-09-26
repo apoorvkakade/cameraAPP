@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int picID = 123;
+    private static final int picID = 123; //For validating the response that we get from the Camera App
     Button cameraOpenButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         cameraOpenButton.setOnClickListener( v->{
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-            startActivityForResult(cameraIntent, picID);
+            startActivityForResult(cameraIntent, picID); 
         });
     }
 
