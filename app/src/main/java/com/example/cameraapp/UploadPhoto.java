@@ -47,6 +47,7 @@ public class UploadPhoto extends AppCompatActivity {
         return imageEncoded;
     }
 
+    //https://stackoverflow.com/questions/5667371/validate-ipv4-address-in-java
     public boolean validateIP( String ip)
     {
         Pattern pat = Pattern.compile("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
